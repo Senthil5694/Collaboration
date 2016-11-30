@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Component
+@Component("userdetails")
 public class UserDetails extends BaseDomain{
 	@Id
 	@Column

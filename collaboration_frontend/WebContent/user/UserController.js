@@ -1,17 +1,7 @@
 'use strict';
 
-app
-		.controller(
-				'UserController',
-				[
-						'$scope',
-						'UserService',
-						'$location',
-						'$rootScope',
-						'$cookieStore',
-						'$http',
-						function($scope, UserService, $location, $rootScope,
-								$cookieStore,$http) {
+app.controller('UserController',['$scope','UserService','$location','$cookieStore','$rootScope','$http',
+						function($scope, UserService, $location, $cookieStore, $rootScope, $http) {
 							console.log("UserController...")
 							var self = this;
 							self.user = {
@@ -21,11 +11,11 @@ app
 								mobilenumber : '',
 								address : '',
 								emailid : '',
-								isonline : '',
+								isOnline : '',
 								role : '',
 								status:'',
 								reason:'',
-							    errorcode : '',
+								errorcode : '',
 								errormessage : ''
 							};
 							self.users = [];
@@ -56,6 +46,7 @@ app
 													console
 															.error('Error while creating User.');
 												});
+								$location.path("/login")
 							};
 							
 							self.myProfile = function() {
@@ -86,29 +77,26 @@ app
 							};
 
 							self.authenticate = function(user) {
-								console.log("validate...")
-								UserService
-										.authenticate(user)
+								console.log("authenticate...")
+								UserService.authenticate(user)
 										.then(
 
 												function(d) {
 
 													self.user = d;
-													console
-															.log("user.errorCode: "
-																	+ self.user.errorCode)
+													console.log("user.errorcode: "+ self.user.errorcode)
 													if (self.user.errorCode == "404")
 
 													{
 														alert(self.user.errorMessage)
 
-														self.user.id = "";
+														self.user.username = "";
 														self.user.password = "";
 
 													} else {
 														console
 																.log("Valid credentials. Navigating to home page")
-														$rootScope.currentUser = self.user
+															$rootScope.currentUser = self.user
 														$http.defaults.headers.common['Authorization'] = 'Basic '
 																+ $rootScope.currentUser;
 														$cookieStore
@@ -169,15 +157,18 @@ app
 
 							self.reset = function() {
 								self.user = {
-									id : '',
-									name : '',
+									userid : '',
+									username : '',
 									password : '',
-									mobile : '',
+									mobilenumber : '',
 									address : '',
-									email : '',
+									emailid : '',
 									isOnline : '',
-									errorCode : '',
-									errorMessage : ''
+									role:'',
+									status:'',
+									reason:'',
+									errorcode : '',
+									errormessage : ''
 								};
 								$scope.myForm.$setPristine(); // reset Form
 							};

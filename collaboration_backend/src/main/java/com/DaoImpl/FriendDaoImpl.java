@@ -3,13 +3,14 @@ package com.DaoImpl;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.Dao.FriendDao;
 import com.Model.Friend;
 
 
-@Transactional
+@EnableTransactionManagement
 @Repository("frienddao")
 public class FriendDaoImpl implements FriendDao{
 

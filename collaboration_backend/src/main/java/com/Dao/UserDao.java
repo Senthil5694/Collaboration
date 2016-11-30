@@ -17,5 +17,5 @@ public List<UserDetails> list();
 	
 	public void delete (String userid);
 	
-	public UserDetails authenticate(String userid,String password);
+	public UserDetails authenticate(String username,String password);
 }

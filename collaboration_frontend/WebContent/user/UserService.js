@@ -38,13 +38,13 @@ app.factory('UserService', ['$http', '$q','$rootScope', function($http, $q,$root
              
             createUser: function(user){
             	console.log("calling create user")
-                    return $http.post(BASE_URL+'/register/', user)
+                    return $http.post(BASE_URL+'/createusers/', user)
                             .then(
                                     function(response){
                                         return response.data;
                                     }, 
                                     function(errResponse){
-                                        console.error('Error while registering');
+                                        console.error('Error while creating user');
                                         return $q.reject(errResponse);
                                     }
                             );
@@ -79,9 +79,9 @@ app.factory('UserService', ['$http', '$q','$rootScope', function($http, $q,$root
         
             
             authenticate: function(user){
-            	   console.log("Calling the method validateuser with the user :"+user)
+            	   console.log("Calling the method authenticate with the user :"+user)
           		 
-                return $http.post(BASE_URL+'/validateuser',user)
+                return $http.post(BASE_URL+'/user/authenticate/',user)
                         .then(
                                 function(response){
                                     return response.data;

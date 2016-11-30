@@ -18,7 +18,4 @@
     <value>.jsp</value>
  </property>
  </bean>
-<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
-<property name="maxUploadSize" value="1024000"/>
-</bean>
 </beans>

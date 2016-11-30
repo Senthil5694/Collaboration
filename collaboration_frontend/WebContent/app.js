@@ -1,24 +1,23 @@
-var app=amgular.module('myapp',['ngRoute']);
+var app = angular.module('myApp', ['ngRoute','ngCookies']);
 
-app.config(function($routeProvider)
-{
+
+app.config(function($routeProvider){
 	$routeProvider
 	
-	.when('/',{
-		templateUrl:'index.html',
-		controller:'homecontroller'
-	})
-	
-	.when('/login',{
-		templateUrl:'login.html',
-		controller:'logincontroller'
+	.when('/', {
+		templateUrl : 'index.html' ,
+		controller : 'HomeController'
 		
 	})
 	
-	.when('/register',{
-		templateUrl:'register.html',
-		controller:'registercontroller'
+	.when('/login', {
+		templateUrl : 'user/login.html' ,
+		controller : 'UserController'
 	})
 	
-	.otherwise({redirectto:'/'})
+	.when('/register', {
+		templateUrl : 'user/register.html' ,
+		controller : 'UserController'
 	})
+	.otherwise({redirectTo: '/'});
+});
