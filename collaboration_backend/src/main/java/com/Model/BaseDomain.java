@@ -7,25 +7,27 @@ import org.springframework.stereotype.Component;
 @Component("basedomain")
 public class BaseDomain {
 	@Transient
-	public String errorcode;
+	public String errorCode;
 	
 	@Transient
-	public String errormessage;
+	public String errorMessage;
 
-	public String getErrorcode() {
-		return errorcode;
+	public String getErrorCode() {
+		return errorCode;
 	}
 
-	public void setErrorcode(String errorcode) {
-		this.errorcode = errorcode;
+	public void setErrorCode(String errorCode) {
+		this.errorCode = errorCode;
 	}
 
-	public String getErrormessage() {
-		return errormessage;
+	public String getErrorMessage() {
+		return errorMessage;
 	}
 
-	public void setErrormessage(String errormessage) {
-		this.errormessage = errormessage;
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
+
+	
 	
 }

@@ -37,8 +37,8 @@ public class UserController {
 		List<UserDetails> userlist = userDao.list();
 		if (userlist.isEmpty()) {
 			log.debug("USERS NOT AVAILABLE");
-			userdetails.setErrorcode("404");
-			userdetails.setErrormessage("users not available");
+			userdetails.setErrorCode("404");
+			userdetails.setErrorMessage("users not available");
 			userlist.add(userdetails);
 		}
 		return new ResponseEntity<List<UserDetails>>(userlist, HttpStatus.OK);
@@ -53,8 +53,8 @@ public class UserController {
 			if (userdetails == null) {
 				log.debug("USER IS NOT EXISTS WITH THIS ID"+userdetails.getUserid());
 				userdetails = new UserDetails();
-				userdetails.setErrorcode("404");
-				userdetails.setErrormessage("user is not exists with this id"+userdetails.getUserid());
+				userdetails.setErrorCode("404");
+				userdetails.setErrorMessage("user is not exists with this id"+userdetails.getUserid());
 			}
 			return new ResponseEntity<UserDetails>(userdetails, HttpStatus.OK);
 
@@ -71,8 +71,8 @@ public class UserController {
 	{
 		log.debug("-->User does not exist");
 		userdetails = new UserDetails();
-		userdetails.setErrorcode("404");
-		userdetails.setErrormessage("User not found");
+		userdetails.setErrorCode("404");
+		userdetails.setErrorMessage("User not found");
 		return new ResponseEntity<UserDetails>(userdetails,HttpStatus.NOT_FOUND);
 	}
 	userDao.update(userdetails);
@@ -90,8 +90,8 @@ public class UserController {
 		{
 			log.debug("-->User does not exist");
 			userdetails = new UserDetails();
-			userdetails.setErrorcode("404");
-			userdetails.setErrormessage("Blog not found");
+			userdetails.setErrorCode("404");
+			userdetails.setErrorMessage("Blog not found");
 			return new ResponseEntity<UserDetails>(userdetails,HttpStatus.NOT_FOUND);
 		}
 		userDao.delete(userid);
@@ -109,13 +109,13 @@ public class UserController {
 				userdetails.setIsonline("N");
 				userDao.save(userdetails);
 				log.debug("USER REGISTERED SUCCESSFULLY"+userdetails.getUsername());
-				userdetails.setErrormessage("You have Registered successfully,you have registered as"+userdetails.getRole());
+				userdetails.setErrorCode("You have Registered successfully,you have registered as"+userdetails.getRole());
 				return new ResponseEntity<UserDetails>(userdetails,HttpStatus.OK);
 			}else
 			{
 				log.debug("USERID ALREADY EXISTS:"+userdetails.getUserid());
-				userdetails.setErrorcode("404");
-				userdetails.setErrormessage("User id already exists please try with new userid :"+ userdetails.getUserid());
+				userdetails.setErrorCode("404");
+				userdetails.setErrorMessage("User id already exists please try with new userid :"+ userdetails.getUserid());
 				return new ResponseEntity<UserDetails>(userdetails,HttpStatus.OK);
 			}
 
@@ -131,15 +131,15 @@ public class UserController {
 			if (userdetails == null) {
 				log.debug("INVALID CREDENTIALS");
 				userdetails = new UserDetails();
-				userdetails.setErrorcode("404");
-				userdetails.setErrormessage("Invalid credentials please try again");
+				userdetails.setErrorCode("404");
+				userdetails.setErrorMessage("Invalid credentials please try again");
 
 			} else {
 				if(userdetails.getStatus()=="R")
 				{
 					log.debug("YOU ARE NOT APPROVED TO LOGIN");
-					userdetails.setErrorcode("404");
-					userdetails.setErrormessage("You are not approved to login please contact admin");
+					userdetails.setErrorCode("404");
+					userdetails.setErrorMessage("You are not approved to login please contact admin");
 				}
 				else{
 					log.debug("USER LOGGED IN SUCCESSFULLY" + userdetails.getUsername());
@@ -163,12 +163,12 @@ public class UserController {
 
 			if (userDao.update(userdetails)) {
 				log.debug("LOGOUT SUCCESSFULL");
-				userdetails.setErrorcode("200");
-				userdetails.setErrormessage("Logout successfull");
+				userdetails.setErrorCode("200");
+				userdetails.setErrorMessage("Logout successfull");
 			} else {
 				log.debug("PROBLEM OCCURED WHILE LOGGING OUT");
-				userdetails.setErrorcode("404");
-				userdetails.setErrormessage("problem occured while logging out");
+				userdetails.setErrorCode("404");
+				userdetails.setErrorMessage("problem occured while logging out");
 			}
 			httpSession.invalidate();
 			return new ResponseEntity<UserDetails>(userdetails, HttpStatus.OK);
