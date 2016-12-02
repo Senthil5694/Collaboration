@@ -106,7 +106,7 @@ public class UserController {
 			if(userDao.getuser(userdetails.getUserid())==null)
 			{
 				userdetails.setStatus("R");
-				userdetails.setIsonline("N");
+				userdetails.setIsOnline("N");
 				userDao.save(userdetails);
 				log.debug("USER REGISTERED SUCCESSFULLY"+userdetails.getUsername());
 				userdetails.setErrorCode("You have Registered successfully,you have registered as"+userdetails.getRole());
@@ -145,7 +145,7 @@ public class UserController {
 					log.debug("USER LOGGED IN SUCCESSFULLY" + userdetails.getUsername());
 					httpSession.setAttribute("loggedinuserid", userdetails.getUserid());
 					httpSession.setAttribute("loggedinuser", userdetails);
-					userdetails.setIsonline("Y");
+					userdetails.setIsOnline("Y");
 					//frienddao.setonline(user.getid());
 				}
 				
@@ -159,7 +159,7 @@ public class UserController {
 			// update the status as offline
 			String loggedinuserid = (String) httpSession.getAttribute("loggedinuserid");
 			userDao.getuser(loggedinuserid);
-			userdetails.setIsonline("N");
+			userdetails.setIsOnline("N");
 
 			if (userDao.update(userdetails)) {
 				log.debug("LOGOUT SUCCESSFULL");

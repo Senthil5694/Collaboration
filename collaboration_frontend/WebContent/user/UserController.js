@@ -1,15 +1,7 @@
 'use strict';
 
-app
-		.controller(
-				'UserController',
-				[
-						'$scope',
-						'UserService',
-						'$location',
-						'$rootScope',
-						'$http',
-						function($scope, UserService, $location, $rootScope,$http) {
+app.controller('UserController',['$scope','UserService','$location','$cookieStore','$rootScope','$http',
+						function($scope, UserService, $location,$cookieStore, $rootScope,$http) {
 							console.log("UserController...")
 							var self = this;
 							self.user = {
@@ -43,7 +35,7 @@ app
 												});
 							};
 							
-							//self.fatchAllUsers();
+							//self.fetchAllUsers();
 
 							self.createUser = function(user) {
 								console.log("createUser...")
@@ -55,6 +47,7 @@ app
 													console
 															.error('Error while creating User.');
 												});
+								$location.path("/login")
 							};
 							
 							self.myProfile = function() {
@@ -130,7 +123,7 @@ app
 							self.logout = function() {
 								console.log("logout")
 								$rootScope.currentUser = {};
-								/*$cookieStore.remove('currentUser');*/
+								$cookieStore.remove('currentUser');
 								UserService.logout()
 								$location.path('/');
 

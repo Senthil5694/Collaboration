@@ -38,7 +38,7 @@ public class UserDetails extends BaseDomain{
 	private String reason;
 	
 	@Column
-	private String isonline;
+	private String isOnline;
 
 	public String getUserid() {
 		return userid;
@@ -112,13 +112,15 @@ public class UserDetails extends BaseDomain{
 		this.reason = reason;
 	}
 
-	public String getIsonline() {
-		return isonline;
+	public String getIsOnline() {
+		return isOnline;
 	}
 
-	public void setIsonline(String isonline) {
-		this.isonline = isonline;
+	public void setIsOnline(String isOnline) {
+		this.isOnline = isOnline;
 	}
+
+	
 	
 
 	
