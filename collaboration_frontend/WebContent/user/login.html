@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<title>login</title>
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -55,12 +56,12 @@
 			
 	<div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
            
-         <input type="password" name="password" id="password" ng-model="ctrl.user.password" class="form-control input-lg" placeholder="Password">
+          <input type="password" name="password" id="password" ng-model="ctrl.user.password" class="form-control input-lg" placeholder="Password">
          <span
 					ng-show="form.password.$dirty && form.password.$error.required"
 					class="help-block">Password is required</span>
 
-				</div>
+				</div> 
 				
 <span class="button-checkbox">
 					

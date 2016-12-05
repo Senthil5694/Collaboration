@@ -4,7 +4,7 @@ app.factory('UserService', ['$http', '$q','$rootScope', function($http, $q,$root
 	
 	console.log("UserService...")
 	
-	var BASE_URL='http://localhost:8080/collaboration_backend'
+	var BASE_URL='http://localhost:8080/collaboration_backend/'
 		
     return {
          

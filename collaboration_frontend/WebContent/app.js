@@ -19,5 +19,6 @@ app.config(function($routeProvider){
 		templateUrl : 'user/register.html' ,
 		controller : 'UserController'
 	})
+	
 	.otherwise({redirectTo: '/'});
 });

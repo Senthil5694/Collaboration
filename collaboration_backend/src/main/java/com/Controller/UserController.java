@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -174,6 +173,8 @@ public class UserController {
 			return new ResponseEntity<UserDetails>(userdetails, HttpStatus.OK);
 
 		}
+		
+		
 }
 	
 	
@@ -290,19 +291,8 @@ public ResponseEntity<List<UserDetails>> listAllUsers(){
 	return new ResponseEntity<List<UserDetails>>(userdetails,HttpStatus.OK);
 	
 }*/
-//to create users
-	/*@RequestMapping(value="/createusers/", method=RequestMethod.POST)
-	public ResponseEntity<UserDetails> createusers(@RequestBody UserDetails userdetails){
-		log.debug("-->Calling method createUsers");
-		if(userDao.getuser(userdetails.getUserid())==null){
-			log.debug("-->User created");
-			userDao.save(userdetails);
-			return new ResponseEntity<UserDetails>(userdetails,HttpStatus.OK);
-		}
-		log.debug("-->User already exist"+userdetails.getUserid());
-		return new ResponseEntity<UserDetails>(userdetails,HttpStatus.OK);
-		}
-*/
+
+
 /*//to get user by user id
 	@RequestMapping(value="/getuser/{userid}",method=RequestMethod.GET)
 	public ResponseEntity<UserDetails> getuser(@PathVariable("userid")String userid)
@@ -320,3 +310,16 @@ public ResponseEntity<List<UserDetails>> listAllUsers(){
 	log.debug("-->User exist");
 	return new ResponseEntity<UserDetails>(userdetails,HttpStatus.OK);
 	}*/
+
+/*//to create users
+		@RequestMapping(value="/createusers/", method=RequestMethod.POST)
+		public ResponseEntity<UserDetails> createusers(@RequestBody UserDetails userdetails){
+			log.debug("-->Calling method createUsers");
+			if(userDao.getuser(userdetails.getUserid())==null){
+				log.debug("-->User created");
+				userDao.save(userdetails);
+				return new ResponseEntity<UserDetails>(userdetails,HttpStatus.OK);
+			}
+			log.debug("-->User already exist"+userdetails.getUserid());
+			return new ResponseEntity<UserDetails>(userdetails,HttpStatus.OK);
+			}*/

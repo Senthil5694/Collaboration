@@ -1,21 +1,20 @@
 'use strict';
 
-app.controller('UserController',['$scope','UserService','$location','$cookieStore','$rootScope','$http',
-						function($scope, UserService, $location,$cookieStore, $rootScope,$http) {
+app.controller('UserController',['$scope','UserService','$location',/*'$cookieStore',*/'$rootScope','$http',
+						function($scope, UserService, $location, /*$cookieStore,*/ $rootScope	,$http) {
 							console.log("UserController...")
 							var self = this;
 							self.user = {
 								userid : '',
 								username : '',
 								password : '',
-								mobilenumber : '',
+								mobilenumber: '',
 								address : '',
 								emailid : '',
-								role:'',
-								status:'',
-								reason:'',
 								isOnline : '',
 								role : '',
+								status:'',
+								reason:'',
 								errorCode : '',
 								errorMessage : ''
 							};
@@ -35,7 +34,7 @@ app.controller('UserController',['$scope','UserService','$location','$cookieStor
 												});
 							};
 							
-							//self.fetchAllUsers();
+							//self.fatchAllUsers();
 
 							self.createUser = function(user) {
 								console.log("createUser...")
@@ -47,7 +46,6 @@ app.controller('UserController',['$scope','UserService','$location','$cookieStor
 													console
 															.error('Error while creating User.');
 												});
-								$location.path("/login")
 							};
 							
 							self.myProfile = function() {
@@ -101,13 +99,13 @@ app.controller('UserController',['$scope','UserService','$location','$cookieStor
 														console
 																.log("Valid credentials. Navigating to home page")
 																alert('login successful')
-														$rootScope.currentUser = self.user
+														/*$rootScope.currentUser = self.user
 														$http.defaults.headers.common['Authorization'] = 'Basic '
 																+ $rootScope.currentUser;
 														$cookieStore
 																.put(
 																		'currentUser',
-																		$rootScope.currentUser);
+																		$rootScope.currentUser);*/
 														$location.path('/');
 
 													}
@@ -165,12 +163,12 @@ app.controller('UserController',['$scope','UserService','$location','$cookieStor
 									userid : '',
 									username : '',
 									password : '',
-									mobilenumber : '',
+									mobile : '',
 									address : '',
-									emailid : '',
+									email : '',
 									role:'',
-									isOnline : '',
 									status:'',
+									isOnline : '',
 									reason:'',
 									errorCode : '',
 									errorMessage : ''
