@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Dao.FriendDao;
 import com.Dao.UserDao;
 import com.Model.UserDetails;
 
@@ -28,6 +29,9 @@ public class UserController {
 
 	@Autowired
 	private UserDetails userdetails;
+	
+	@Autowired
+	private FriendDao friendDao;
 	
 
 	// this method will return list of userdetails from the database
@@ -61,45 +65,98 @@ public class UserController {
 
 	
 	
-	//update user by user id
+	//this method is used to update a user by user id
 	@RequestMapping(value="/user/{userid}",method=RequestMethod.PUT)
 	public ResponseEntity<UserDetails> updateuser(@PathVariable("userid")String userid)
 	{
-	log.debug("-->calling update method");
+	log.debug("-->CALLING METHOD USER UPDATE");
 	if(userDao.getuser(userid)==null)
 	{
-		log.debug("-->User does not exist");
+		log.debug("-->USER DOES NOT EXISTS");
 		userdetails = new UserDetails();
 		userdetails.setErrorCode("404");
 		userdetails.setErrorMessage("User not found");
 		return new ResponseEntity<UserDetails>(userdetails,HttpStatus.NOT_FOUND);
 	}
 	userDao.update(userdetails);
-	log.debug("-->User updated successfully");
+	log.debug("-->USER UPDATED SUCCESSFULLY");
 	return new ResponseEntity<UserDetails>(userdetails,HttpStatus.OK);
 	
 }
-	//delete user
+	//this method is used to delete a user from the database  
 	@RequestMapping(value="/user/{userid}",method=RequestMethod.DELETE)
 	public ResponseEntity<UserDetails> deleteuser(@PathVariable("userid")String userid)
 	{
-		log.debug("-->calling delete method");
+		log.debug("-->CALLING METHOD DELETE USER");
 		UserDetails userdetails=userDao.getuser(userid);
 		if(userdetails==null)
 		{
 			log.debug("-->User does not exist");
 			userdetails = new UserDetails();
 			userdetails.setErrorCode("404");
-			userdetails.setErrorMessage("Blog not found");
+			userdetails.setErrorMessage("user not found");
 			return new ResponseEntity<UserDetails>(userdetails,HttpStatus.NOT_FOUND);
 		}
 		userDao.delete(userid);
-		log.debug("-->User deleted successfully");
+		log.debug("-->USER DELETED SUCCESSFULLY");
 		return new ResponseEntity<UserDetails>(userdetails,HttpStatus.OK);
 	}
 	
-
-	//this method is used to save the userdetails to the database when the user registers
+	//this method is used to create a user table in database when the user registers
+		@RequestMapping(value="/createusers/", method=RequestMethod.POST)
+		public ResponseEntity<UserDetails> createusers(@RequestBody UserDetails userdetails){
+			log.debug("-->CALLING METHOD CREATE USER");
+			if(userDao.getuser(userdetails.getUserid())==null){
+				userDao.save(userdetails);
+				return new ResponseEntity<UserDetails>(userdetails,HttpStatus.OK);
+			}
+			log.debug("-->USER ALREADY EXISTS"+userdetails.getUserid());
+			return new ResponseEntity<UserDetails>(userdetails,HttpStatus.OK);
+			}
+	//authentication
+		@RequestMapping(value="/user/authenticate",method=RequestMethod.POST)
+		public ResponseEntity<UserDetails> authenticateuser(@RequestBody UserDetails userdetails,HttpSession session)
+		{
+			log.debug("-->CALLING METHOD USER AUTHENTICATE");
+		
+			userdetails=userDao.authenticate(userdetails.getUsername(), userdetails.getPassword());
+			if(userdetails==null)
+			{
+				log.debug("-->USER DOES NOT EXISTS");
+				userdetails = new UserDetails();
+				userdetails.setErrorCode("404");
+				userdetails.setErrorMessage("Invalid Credentials, Please enter vaild credentials");
+		}
+			else
+			{
+				userdetails.setErrorCode("200");
+				log.debug("-->USER EXISTS WITH THE ABOVE CREDENTIALS");
+				session.setAttribute("loggedInUser",userdetails);
+				session.setAttribute("loggedInUserId", userdetails.getUsername());
+				friendDao.setOnLine(userdetails.getUsername());
+				userDao.setOnLine(userdetails.getUsername());
+			}
+			return new ResponseEntity<UserDetails>(userdetails,HttpStatus.OK);
+		}
+		//this method is used to logout a user from the application
+		@RequestMapping(value="/user/logout",method=RequestMethod.GET)
+		public ResponseEntity<UserDetails> logout(HttpSession session)
+		{
+			log.debug("CALLING METHOD USER LOGOUT");
+			UserDetails loggedInUser = (UserDetails) session.getAttribute("loggedInUser");
+			userdetails= userDao.authenticate(loggedInUser.getUsername(), loggedInUser.getPassword());
+			friendDao.setOffLine(userdetails.getUsername());
+			userDao.setOffLine(userdetails.getUsername());
+			session.invalidate();
+			return new ResponseEntity<UserDetails>(userdetails,HttpStatus.OK);
+		}
+	
+		
+		
+}
+	
+	
+/*//this method is used to save the userdetails to the database when the user registers
 		@RequestMapping(value="/createusers/",method=RequestMethod.POST)
 		public ResponseEntity<UserDetails> registeruser(@RequestBody UserDetails userdetails,HttpSession httpSession) {
 			if(userDao.getuser(userdetails.getUserid())==null)
@@ -173,25 +230,9 @@ public class UserController {
 			return new ResponseEntity<UserDetails>(userdetails, HttpStatus.OK);
 
 		}
-		
-		
-}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	*/
 	
 	
 	

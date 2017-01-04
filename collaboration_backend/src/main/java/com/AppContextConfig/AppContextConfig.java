@@ -17,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.Dao.UserDao;
 import com.DaoImpl.UserDaoImpl;
+import com.Model.Blog;
 import com.Model.Friend;
 import com.Model.Job;
 import com.Model.UserDetails;
@@ -60,7 +61,7 @@ public class AppContextConfig {
 	    sessionBuilder.addProperties(getHibernateProperties());
 	    
 	    sessionBuilder.addAnnotatedClasses(UserDetails.class);
-	    //sessionBuilder.addAnnotatedClasses(Blog.class);
+	    sessionBuilder.addAnnotatedClasses(Blog.class);
 	    sessionBuilder.addAnnotatedClasses(Friend.class);
 	    return sessionBuilder.buildSessionFactory();
 	}

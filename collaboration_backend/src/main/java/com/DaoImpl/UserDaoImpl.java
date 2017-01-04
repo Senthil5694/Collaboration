@@ -70,17 +70,25 @@ public class UserDaoImpl implements UserDao{
 		return getuser(hql);*/
 	}
 	
-	@Transactional
-//this method is used to saveorupdate the userdetails to the database
-	public void saveOrUpdate(UserDetails userdetails) {
-		sessionFactory.getCurrentSession().saveOrUpdate(userdetails);
-	}
-	@Transactional
-//this method will save userdetails
-	public void save(UserDetails userdetails) {
 	
-			sessionFactory.getCurrentSession().save(userdetails);
+
+	@Transactional
+	public boolean save(UserDetails userdetails)
+	{
+	try {
+		// Session session = sessionFactory.getCurrentSession();
+	
+		sessionFactory.getCurrentSession().save(userdetails);
+		return true;
 	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+		return false;
+	}
+	}
+//this method will save userdetails
+	
 	@Transactional
 //this method is used to update userdetails
 	public boolean update(UserDetails userdetails) {
@@ -94,15 +102,28 @@ public class UserDaoImpl implements UserDao{
 			}
 			return true;	
 			}
-	@Transactional
+	
 //this method is used to delete a single user by using userid
-	public void delete(String userid) {
-		UserDetails userdetails = new UserDetails();
-		userdetails.setUserid(userid);
+	@Transactional
+	public boolean delete(String id)
+	{
+	try {
 		
-			sessionFactory.getCurrentSession().delete(userdetails);	
 		
+			UserDetails CategoryToDelete = new UserDetails();
+			CategoryToDelete.setUserid(id);
+			sessionFactory.getCurrentSession().delete(CategoryToDelete);
+		
+		return true;
 	}
+	catch(Exception e)
+	{
+		
+		e.printStackTrace();
+		return false;
+	}
+	}
+
 /*//this method will return a userdetail based on the userid and password
 	public boolean authenticate(String userid, String password) {
 		String hql ="from RegisterModel where userid= '" + userid + "' and " + " password ='" + password + "'";
@@ -126,6 +147,24 @@ public class UserDaoImpl implements UserDao{
        log.debug("RETURNING METHOD USER AUTHENTICATE");
 		return  (UserDetails)query.uniqueResult();
 			}
+	//this method is used to set a user as online
+	@Transactional
+	public void setOnLine(String username)
+	{
+		String hql ="update UserDetails SET isonline='Y' where username= "+" '" +username+ "'";
+		Query query =sessionFactory.getCurrentSession().createQuery(hql);
+		query.executeUpdate();
+	}
+
+	  // this method is used to set user as offline
+	@Transactional
+	public void setOffLine(String username)
+	{
+		String hql ="update Userdetails SET isonline='N' where username= "+" '" +username+ "'";
+		Query query =sessionFactory.getCurrentSession().createQuery(hql);
+		query.executeUpdate();
+		
+	}
 
 
 }

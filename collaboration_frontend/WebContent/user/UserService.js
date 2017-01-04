@@ -4,7 +4,7 @@ app.factory('UserService', ['$http', '$q','$rootScope', function($http, $q,$root
 	
 	console.log("UserService...")
 	
-	var BASE_URL='http://localhost:8080/collaboration_backend/'
+	var BASE_URL='http://localhost:8080/collaboration_backend'
 		
     return {
          
@@ -72,7 +72,10 @@ app.factory('UserService', ['$http', '$q','$rootScope', function($http, $q,$root
                                 function(response){
                                     return response.data;
                                 }, 
-                              null
+                                function(errResponse){
+                                    console.error('Error while logging out');
+                                    return $q.reject(errResponse);
+                                }
                         );
         },
         

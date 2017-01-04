@@ -1,20 +1,18 @@
 'use strict';
 
-app.controller('UserController',['$scope','UserService','$location',/*'$cookieStore',*/'$rootScope','$http',
-						function($scope, UserService, $location, /*$cookieStore,*/ $rootScope	,$http) {
+app.controller('UserController',['$scope','UserService','$location','$cookieStore','$rootScope','$http',
+						function($scope, UserService, $location, $cookieStore, $rootScope, $http) {
 							console.log("UserController...")
 							var self = this;
 							self.user = {
 								userid : '',
 								username : '',
 								password : '',
-								mobilenumber: '',
+								mobile : '',
 								address : '',
-								emailid : '',
+								email : '',
 								isOnline : '',
 								role : '',
-								status:'',
-								reason:'',
 								errorCode : '',
 								errorMessage : ''
 							};
@@ -46,6 +44,7 @@ app.controller('UserController',['$scope','UserService','$location',/*'$cookieSt
 													console
 															.error('Error while creating User.');
 												});
+								$location.path("/login")
 							};
 							
 							self.myProfile = function() {
@@ -77,35 +76,32 @@ app.controller('UserController',['$scope','UserService','$location',/*'$cookieSt
 
 							self.authenticate = function(user) {
 								console.log("authenticate...")
-								UserService
-										.authenticate(user)
+								UserService.authenticate(user)
 										.then(
 
 												function(d) {
 
 													self.user = d;
-													console
-															.log("user.errorCode: "
-																	+ self.user.errorCode)
+													console.log("user.errorCode: "+ self.user.errorCode)
 													if (self.user.errorCode == "404")
 
 													{
 														alert(self.user.errorMessage)
 
-														self.user.id = "";
+														self.user.username = "";
 														self.user.password = "";
 
 													} else {
-														console
-																.log("Valid credentials. Navigating to home page")
-																alert('login successful')
-														/*$rootScope.currentUser = self.user
+														console.log("Valid credentials. Navigating to home page")
+															$rootScope.currentUser = self.user
+															
 														$http.defaults.headers.common['Authorization'] = 'Basic '
 																+ $rootScope.currentUser;
+														 $rootScope.currentUserSignedIn = true;
 														$cookieStore
-																.put(
-																		'currentUser',
-																		$rootScope.currentUser);*/
+																.put('currentUser',	$rootScope.currentUser);
+														
+														
 														$location.path('/');
 
 													}
@@ -120,10 +116,11 @@ app.controller('UserController',['$scope','UserService','$location',/*'$cookieSt
 
 							self.logout = function() {
 								console.log("logout")
+								UserService.logout()
 								$rootScope.currentUser = {};
 								$cookieStore.remove('currentUser');
-								UserService.logout()
-								$location.path('/');
+								
+								$location.path('index.html');
 
 							}
 
@@ -166,10 +163,7 @@ app.controller('UserController',['$scope','UserService','$location',/*'$cookieSt
 									mobile : '',
 									address : '',
 									email : '',
-									role:'',
-									status:'',
 									isOnline : '',
-									reason:'',
 									errorCode : '',
 									errorMessage : ''
 								};

@@ -1,7 +1,5 @@
-<!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
 <title>Register</title>
  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,7 +8,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <style>
-
+/* Credit to bootsnipp.com for the css for the color graph */
 .colorgraph {
   height: 5px;
   border-top: 0;
@@ -28,15 +26,21 @@ background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5
 </style>
 </head>
 <body>
-<div class="container" ng-controller="UserController as ctrl">
+<div class="generic-container" ng-controller="UserController as ctrl">
 <div ng-hide='ctrl.user.errorMessage=="" '>
 			<div class="alert alert-danger fade in">Error :
 				{{ctrl.user.errorMessage}}</div>
-<div ng-show='ctrl.user.errorMessage=="" '>
+
+		</div>
+
+
+		<div ng-show='ctrl.user.errorMessage=="" '>
+<div class="container">
+
 <div class="row">
     <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
 		
-<form  ng-submit="ctrl.submit()" name="myForm" role="form">
+<form ng-submit="ctrl.submit()" name="myForm" class="form-horizontal" role="form">
 			<h2>Please Sign Up <small>It's free and always will be.</small></h2>
 			
 <hr class="colorgraph">
@@ -57,7 +61,7 @@ background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5
 							</div>						
 <div class="form-group">
 
-<input type="text" name="userid" id="userid"  ng-model="ctrl.user.userid" class="form-control input-lg" placeholder="Userid" tabindex="3">
+<input type="text" name="userid" id="userid" ng-model="ctrl.user.userid" class="form-control input-lg" placeholder="Userid" tabindex="4">
 			
 </div>
 
@@ -70,13 +74,13 @@ background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5
 </div>
 
 <div class="form-group">
-<input type="email" name="emailid" id="emailid" ng-model="ctrl.user.emailid" class="form-control input-lg" placeholder="Emailid" tabindex="4">
+<input type="email" name="email" id="email" ng-model="ctrl.user.email" class="form-control input-lg" placeholder="Email" tabindex="4">
 
 </div>
 
 <div class="form-group">
 
-<input type="text" name="address" id="address" ng-model="ctrl.user.address"  class="form-control input-lg" placeholder="Address" tabindex="4">
+<input type="text" name="address" id="address" ng-model="ctrl.user.address" class="form-control input-lg" placeholder="Address" tabindex="4">
 
 </div>
 
@@ -96,7 +100,7 @@ background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5
 					
 <div class="form-group">
 
-<input type="number" name="mobilenumber" id="mobilenumber" ng-model="ctrl.user.mobilenumber" class="form-control input-lg" placeholder="Mobile Number" tabindex="6">
+<input type="number" name="mobile" id="mobile" ng-model="ctrl.user.mobile" class="form-control input-lg" placeholder="Mobile Number" tabindex="6">
 
 </div>
 
@@ -130,7 +134,7 @@ background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5
 
 <div class="col-xs-12 col-md-6"><input type="submit" value="Register" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>
 
-<div class="col-xs-12 col-md-6"><a href="#" class="btn btn-success btn-block btn-lg">Sign In</a></div>
+<div class="col-xs-12 col-md-6"><a href="#/login" class="btn btn-success btn-block btn-lg">Sign In</a></div>
 	
 </div>
 	</form>
@@ -144,13 +148,15 @@ background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5
 
 <div class="modal-header">
 
-<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
 
 <h4 class="modal-title" id="myModalLabel">Terms & Conditions</h4>
 </div>
 </div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+</div>
+</div>
 </div>
 </body>
 </html>
