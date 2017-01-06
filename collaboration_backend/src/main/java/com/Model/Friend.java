@@ -15,6 +15,10 @@ public class Friend extends BaseDomain{
 	
 	@Id
 	private String id;
+	public Friend(){
+		this.id ="FRIEND"+ UUID.randomUUID().toString().substring(24).toUpperCase();
+	}
+
 	private String userid;
 	private String friendid;
 	private String status;
@@ -50,10 +54,7 @@ public class Friend extends BaseDomain{
 	public void setIsOnline(char isOnline) {
 		this.isOnline = isOnline;
 	}
-	public Friend(){
-		this.id ="Friend"+ UUID.randomUUID().toString().substring(24).toUpperCase();
-	}
-	
+		
 	
 	
 }

@@ -1,0 +1,35 @@
+<div class="container" ng-controller="ForumController as ctrl">
+
+	<p>
+	<p>
+	<p>
+	<p>
+	
+	<p>
+	<p>
+	<p>
+	<p>
+	
+	<div class="form-group has-feedback"></div>
+
+  Search
+
+  <p><input type="text" ng-model="search_text"></p>
+
+
+	<div ng-repeat="Forum in ctrl.forums| filter: search_text">
+
+		<fieldset>
+			<legend></legend>
+			
+			<p>ForumTitle: ({{Forum.title}} ) 
+
+			<p>AuthorName:( {{Forum.userid}})
+			    &nbsp; &nbsp;&nbsp;  
+
+			<p>Description: {{Forum.description}}
+ 	</fieldset>
+	</div>
+
+
+</div>

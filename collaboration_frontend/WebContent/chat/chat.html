@@ -126,7 +126,7 @@ hr {
   <body>
     <div ng-controller="ChatController" class="container">
       <form ng-submit="addMessage()" name="messageForm">
-        <textarea placeholder="Compose your message" class="form-control input-sm" ng-model="message" required style="height:200px"/>
+        <textarea class="form-control input-sm" placeholder="Compose Your Message..." ng-model="message" style="height:150px;"/>
         <div class="info">
           <span class="count" ng-bind="max - message.length" ng-class="{danger: message.length > max}">140</span>
           <button class="btn btn-success" ng-disabled="message.length > max || message.length === 0">SendMessage</button>

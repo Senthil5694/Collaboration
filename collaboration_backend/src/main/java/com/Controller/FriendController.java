@@ -29,6 +29,9 @@ public class FriendController {
 	@Autowired
 	private Friend friend;
 	
+	@Autowired
+	private HttpSession session;
+	
 	
 	// this method is used to list all the users in the database
 	@RequestMapping(value="/myFriends", method=RequestMethod.GET)
@@ -36,9 +39,8 @@ public class FriendController {
 		log.debug("-->CALLING METHOD LIST ALL MYFRIENDS");
 		
 		UserDetails loggedInUser = (UserDetails) session.getAttribute("loggedInUser");
-		String loggedInUserid = (String) session.getAttribute("loggedInUserId");
 		System.out.println("CALLING METHOD LIST ALL THE USERS"+loggedInUser.getUsername());
-		List<Friend> myfriends = friendDao.getmyfriends(loggedInUserid);
+		List<Friend> myfriends = friendDao.getmyfriends(loggedInUser.getUsername());
 		return new ResponseEntity<List<Friend>> (myfriends,HttpStatus.OK);
 	}
 	
@@ -70,41 +72,31 @@ public class FriendController {
 	}
 	
 	//this method is used to accept a friend request
-	@RequestMapping(value="/acceptFriend/{friendid}", method=RequestMethod.GET)
-	public ResponseEntity<Friend> acceptFriend(@PathVariable("friendid")String friendid,HttpSession session)
+	@RequestMapping(value="/acceptFriend/{id}", method=RequestMethod.GET)
+	public ResponseEntity<Friend> acceptFriend(@PathVariable("id")String id,HttpSession session)
 	{
 		log.debug("-->CALLING METHOD ACCEPT FRIEND");
-		String loggedInUserId = (String) session.getAttribute("loggedInUserId");
-		friend.setUserid(loggedInUserId);
-		friend.setFriendid(friendid);
-		friend.setStatus("A");
-		friendDao.saveOrUpdate(friend);
-		/*updateRequest(friendid,"A",session);*/
+		friendDao.setStatusAccept(id);
 		return new ResponseEntity<Friend> (friend,HttpStatus.OK);
 	}
 	
 	//this method is used to reject a friend request
-	@RequestMapping(value="/rejectFriend/{friendid}", method=RequestMethod.GET)
-	public ResponseEntity<Friend> rejectFriend(@PathVariable("friendid")String friendid,HttpSession session)
+	@RequestMapping(value="/rejectFriend/{id}", method=RequestMethod.GET)
+	public ResponseEntity<Friend> rejectFriend(@PathVariable("id")String id,HttpSession session)
 	{
 		log.debug("-->CALLING METHOD REJECT FRIEND");
-		UserDetails loggedInUser = (UserDetails) session.getAttribute("loggedInUser");	
-		friend.setUserid(loggedInUser.getUserid());
-		friend.setFriendid(friendid);
-		friend.setStatus("R");
-		friendDao.saveOrUpdate(friend);
+		friendDao.setStatusReject(id);
 		return new ResponseEntity<Friend>(friend,HttpStatus.OK);
 	}
 	
 	//this method is used to view the friend request of the user
 	@RequestMapping(value="/getmyfriendRequest", method=RequestMethod.GET)
-	public ResponseEntity<Friend> getFriendRequest(HttpSession session){
+	public ResponseEntity<List<Friend>> getFriendRequest(HttpSession session){
 		log.debug("-->CALLING METHOD LIST MY FRIEND REQUEST");
-		
-		String loggedInUserid = (String) session.getAttribute("loggedInUserId");
-
-		friendDao.getNewFriendrequest(loggedInUserid);
-		return new ResponseEntity<Friend> (friend,HttpStatus.OK);
+		UserDetails loggedInUser = (UserDetails) session.getAttribute("loggedInUser");		
+		System.out.println("Calling method listAllFriends"+loggedInUser.getUsername());
+		List<Friend> myfriends = friendDao.getNewFriendrequest(loggedInUser.getUsername());
+		return new ResponseEntity<List<Friend>> (myfriends,HttpStatus.OK);
 		
 	}
 	
@@ -114,5 +106,16 @@ public class FriendController {
 		List<Friend> myfriends = friendDao.getmyfriends(id);
 		return new ResponseEntity<List<Friend>> (myfriends,HttpStatus.OK);
 	}
+	
+	/*private void updateRequest(String friendid,String status)
+	{
+		String LoggedInUserId=(String) session.getAttribute("LoggedInUserId");
+		friend.setUserid(LoggedInUserId);
+		friend.setFriendid(friendid);
+		friend.setStatus(status);
+		friendDao.saveOrUpdate(friend);
+	}*/
+		
+	}
 
-}
+

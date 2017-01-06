@@ -120,7 +120,7 @@ app.controller('UserController',['$scope','UserService','$location','$cookieStor
 								$rootScope.currentUser = {};
 								$cookieStore.remove('currentUser');
 								
-								$location.path('index.html');
+								$location.path('/');
 
 							}
 

@@ -41,10 +41,10 @@ app.config(function($routeProvider){
 	})
 	
 	
-	.when('/logout', {
-		templateUrl : 'index.html' ,
-		controller : 'UserController'
-	})
+	/*.when('/logout', {
+		templateUrl : 'home/home.html' ,
+		controller : 'HomeController'
+	})*/
 	
 	//Friend related mapping
 	.when('/add_friend', {
@@ -65,6 +65,15 @@ app.config(function($routeProvider){
 		templateUrl : 'about.html' ,
 		
 	})
+	.when('/create_forum', {
+    templateUrl : 'forum/create_forum.html',
+    controller  : 'ForumController'
+  })
+  
+  .when('/view_forum', {
+    templateUrl : 'forum/view_forum.html',
+    controller  : 'ForumController'
+  })
 	
 	
 	.otherwise({redirectTo: '/'});

@@ -156,6 +156,9 @@ public class UserController {
 }
 	
 	
+
+
+
 /*//this method is used to save the userdetails to the database when the user registers
 		@RequestMapping(value="/createusers/",method=RequestMethod.POST)
 		public ResponseEntity<UserDetails> registeruser(@RequestBody UserDetails userdetails,HttpSession httpSession) {
