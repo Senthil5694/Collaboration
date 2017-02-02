@@ -90,7 +90,7 @@ background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5
 
 <div class="form-group">
 
-<input type="password" name="password" id="password" ng-model="ctrl.user.password" class="form-control input-lg" placeholder="Password" tabindex="5">
+<input type="password" name="password" id="password" ng-model="ctrl.user.password" class="form-control input-lg" pattern=".{5,20}" title="Password should contain minimum 5 letters" placeholder="Password" tabindex="5">
 	
 </div>
 
@@ -100,7 +100,7 @@ background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5
 					
 <div class="form-group">
 
-<input type="number" name="mobile" id="mobile" ng-model="ctrl.user.mobile" class="form-control input-lg" placeholder="Mobile Number" tabindex="6">
+<input type="number" name="mobile" id="mobile" ng-model="ctrl.user.mobile" class="form-control input-lg" placeholder="Mobile Number" pattern="[789][0-9]{9}" tabindex="6">
 
 </div>
 

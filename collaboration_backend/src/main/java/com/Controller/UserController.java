@@ -113,7 +113,7 @@ public class UserController {
 			log.debug("-->USER ALREADY EXISTS"+userdetails.getUserid());
 			return new ResponseEntity<UserDetails>(userdetails,HttpStatus.OK);
 			}
-	//authentication
+	//this method is used to validate the username and password
 		@RequestMapping(value="/user/authenticate",method=RequestMethod.POST)
 		public ResponseEntity<UserDetails> authenticateuser(@RequestBody UserDetails userdetails,HttpSession session)
 		{
